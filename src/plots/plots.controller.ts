@@ -20,9 +20,4 @@ export class PlotsController {
         console.log({id})
        return this.plotsService.findOneById(+id)
     }
-
-    @Get()
-    getAll() {
-        return this.plotsService.findAllPlots()
-    }
 }
