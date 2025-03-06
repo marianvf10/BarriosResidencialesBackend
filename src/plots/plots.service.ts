@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class PlotsService {
@@ -14,6 +14,7 @@ export class PlotsService {
 
       findOneById(id:number) {
         const plot = this.plots.find(plot => plot.id === id);
+        if (!plot) throw new NotFoundException(`Plot with id ${id} not found`)
         return plot
      }
      
