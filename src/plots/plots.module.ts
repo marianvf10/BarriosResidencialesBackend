@@ -4,6 +4,7 @@ import { PlotsService } from './plots.service';
 
 @Module({
   controllers: [PlotsController],
-  providers: [PlotsService]
+  providers: [PlotsService],
+  exports:[PlotsService]
 })
 export class PlotsModule {}
