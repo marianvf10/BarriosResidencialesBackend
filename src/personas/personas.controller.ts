@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
 import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
+import { ParseMongoIdPipe } from 'src/common/pipes/parse-mongo-id/parse-mongo-id.pipe';
 
 @Controller('personas')
 export class PersonasController {
@@ -17,18 +18,18 @@ export class PersonasController {
     return this.personasService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.personasService.findOne(+id);
+  @Get(':term')
+  findOne(@Param('term') term: string) {
+    return this.personasService.findOne(term);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonaDto: UpdatePersonaDto) {
-    return this.personasService.update(+id, updatePersonaDto);
+  @Patch(':term')
+  update(@Param('term') term: string, @Body() updatePersonaDto: UpdatePersonaDto) {
+    return this.personasService.update(term, updatePersonaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.personasService.remove(+id);
+  remove(@Param('id', ParseMongoIdPipe ) id: string) {
+    return this.personasService.remove(id);
   }
 }
